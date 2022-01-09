@@ -33,50 +33,46 @@ window.addEventListener('load', async () => {
         //let DNI = document.getElementById('DNI').value;
         let DNInum = document.getElementById('DNInum').value;
         let nombre = document.getElementById('nombre').value;
-        let apellidos = document.getElementById('apellido').value;
         let tracking = document.getElementById('tracking').value;
         //let DNIa = document.getElementById('DNIa').value;
         let DNIanum = document.getElementById('DNIanum').value;
         let nombrea = document.getElementById('nombrea').value;
-        let apellidosa = document.getElementById('apellidoa').value;
 
 
 
-        generatePDF(DNInum, nombre, apellidos, tracking, DNIanum, nombrea, apellidosa);
+
+        generatePDF(DNInum, nombre, tracking, DNIanum, nombrea);
     })
 
 });
 
-async function generatePDF(DNInum, nombre, apellidos, tracking, DNIanum, nombrea, apellidosa) {
+async function generatePDF(DNInum, nombre, tracking, DNIanum, nombrea) {
     const image = await loadImage("formulario.jpg");
     const signatureImage = signaturePad.toDataURL();
 
-    const pdf = new jsPDF('l', 'px', 'A4');
+    const pdf = new jsPDF('l', 'px', 'a4');
     pdf.setFont("arial");
     pdf.setFontType("bold");
 
-    pdf.addImage(image, 'PNG', 0, 0, 699, 419);
-    pdf.addImage(signatureImage, 'PNG', 50, 350, 300, 60);
+    pdf.addImage(image, 'JPG', 37, 25, 555, 391);
+    pdf.addImage(signatureImage, 'PNG', 335, 330, 300, 60);
 
 
     const date = new Date();
-    pdf.text('FECHA:', 200, 220);
-    pdf.text(date.getUTCDate().toString(), 250, 220);
-    pdf.text('-', 255, 220);
-    pdf.text((date.getUTCMonth() + 1).toString(), 260, 220);
-    pdf.text('-', 265, 220);
-    pdf.text(date.getUTCFullYear().toString(), 270, 220);
+    pdf.text(date.toLocaleDateString(), 300, 230);
+    pdf.text('FECHA:', 250, 230);
 
-    pdf.setFontSize(15);
+
+    pdf.setFontSize(18);
     //pdf.text(DNI, 170, 213);
-    pdf.text(DNInum, 150, 250);
-    pdf.text(nombre, 50, 235);
-   //pdf.text(apellidos, 170, 456);
-    pdf.text(tracking, 150, 325);
+    pdf.text('123456789Z', 95, 277); //DNInum
+    pdf.text('FEDERICO GARCIA LORCA', 65, 254); //nombre
+
+    pdf.text('PK23456787654323456Z', 148, 359);//tracking
     //pdf.text(DNIa, 170, 213);
-    pdf.text(DNIanum, 150, 295);
-    pdf.text(nombrea, 130, 275);
-    //pdf.text(apellidosa, 170, 456);
+    pdf.text('987654312Z', 160, 331);//DNIanum
+    pdf.text('TU PRIMA LA CALVA', 100, 303);//nombrea
+
 
 
 
