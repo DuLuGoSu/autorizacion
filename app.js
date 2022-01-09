@@ -65,18 +65,13 @@ async function generatePDF(DNInum, nombre, tracking, DNIanum, nombrea) {
 
     pdf.setFontSize(18);
     //pdf.text(DNI, 170, 213);
-    pdf.text('123456789Z', 95, 277); //DNInum
-    pdf.text('FEDERICO GARCIA LORCA', 65, 254); //nombre
-
-    pdf.text('PK23456787654323456Z', 148, 359);//tracking
+    pdf.text(DNInum, 95, 277); //DNInum
+    pdf.text(nombre, 65, 254); //nombre
+    pdf.text(tracking, 148, 359);//tracking
     //pdf.text(DNIa, 170, 213);
-    pdf.text('987654312Z', 160, 331);//DNIanum
-    pdf.text('TU PRIMA LA CALVA', 100, 303);//nombrea
-
-
-
-
-
+    pdf.text(DNIanum, 160, 331);//DNIanum
+    pdf.text(nombrea, 100, 303);//nombrea
+    
 
     pdf.save("autorizacion.pdf");
 
