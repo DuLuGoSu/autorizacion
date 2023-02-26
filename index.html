@@ -80,3 +80,54 @@
 </body>
 
 </html>
+    <script>
+        const form = document.querySelector('#form');
+        const statusMessage = document.querySelector('#status-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Obtener los datos del formulario
+            let DNInum = document.getElementById('DNInum').value;
+            let nombre = document.getElementById('nombre').value;
+            let tracking = document.getElementById('tracking').value;
+            let DNIanum = document.getElementById('DNIanum').value;
+            let nombrea = document.getElementById('nombrea').value;
+
+            // Generar el PDF y obtener su contenido en base64
+            const pdfBase64 = await generatePDF(DNInum, nombre, tracking, DNIanum, nombrea);
+
+            // Enviar el correo electrónico con el PDF adjunto
+            const response = await sendEmail(pdfBase64);
+            statusMessage.textContent = response.message;
+        });
+
+        async function sendEmail(pdfBase64) {
+            const email = {
+                to: 'destinatario@gmail.com', // Cambiar por el destinatario deseado
+                subject: 'Autorización de entrega', // Cambiar el asunto si se desea
+                text: 'Se adjunta la autorización de entrega en formato PDF.', // Cambiar el mensaje de texto si se desea
+                attachments: [
+                    {
+                        filename: 'autorizacion.pdf',
+                        content: pdfBase64,
+                        encoding: 'base64'
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch('/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(email)
+                });
+                const json = await response.json();
+                return json;
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
+    </script>
