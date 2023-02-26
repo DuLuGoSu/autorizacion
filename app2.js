@@ -4,14 +4,14 @@ function sendEmail(email, pdfData) {
         port: 465,
         secure: true,
         auth: {
-            user: "tu_correo@gmail.com",
-            pass: "tu_contraseña"
+            user: "h8charter@gmail.com",
+            pass: "correos8"
         }
     });
 
     const mailOptions = {
-        from: "tu_correo@gmail.com",
-        to: email,
+        from: "h8charter@gmail.com",
+        to: h8charter@gmail.com,
         subject: "PDF generado",
         attachments: [
             {
